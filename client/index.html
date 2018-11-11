@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Todo liste avec VueJS</title>
+
+    <script src="lib/vue.min.js"></script>
+    <script src="js/script.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <fieldset>
+            <legend>
+                <h1>Gestion des Restaurants</h1>
+            </legend>
+            <button v-on:click="dialogerAjou">Ajoutter un restaurant</button>
+            <button v-on:click="dialogerrecherche">chercher un restaurant</button>
+            <dialog id="dialog1">
+
+                <form method="dialog" class="form-style-4">
+                    <fieldset>
+                        <legend>
+                            <h2>Ajout des Restaurants : </h2>
+                        </legend>
+                        <label>
+                            Nom: <input type="text" name="nom" required="" v-model="nom">
+                        </label>
+                        <p></p>
+                        <label>
+                            Cuisine: <input type="text" name="cuisine" value="" required="" v-model="cuisine">
+                        </label>
+                        <p></p>
+                        <button v-on:click="AjoutElement">Ajouter ce restaurant</button>
+
+                    </fieldset>
+                </form>
+            </dialog>
+            <br>
+            <br>
+            <fieldset>
+                <legend>
+                    <h2>Nombre de restaurants: {{nbrRestaurant}} </h2>
+                </legend>
+                <label>choisissez le nombre de ligne que vous voulez afficher :</label>
+                <select v-on:click="nbrListe" v-model="size">
+                    <option>1</option>
+                    <option>5</option>
+                    <option>10</option>
+                    <option>15</option>
+                    <option>2000</option>
+                </select>
+                <p></p>
+                <table border="solid">
+                    <tr>
+                        <th>id</th>
+                        <th>nom</th>
+                        <th>cuisine</th>
+                    </tr>
+                    <tr v-for="(r, index) in Restaurants" v-bind:style="{color:getColor(index)}">
+                        <td>{{index}}</td>
+                        <td>{{r.name}}</td>
+                        <td> {{r.cuisine}}</td>
+                        <td> <button v-on:click="ModifierElement(r)">Modifier</button> </td>
+                        <td> <button v-on:click="SupprimerElement(r)">Supprimer </button> </td>
+                    </tr>
+                </table>
+                <p></p>
+                <div>
+                    <button v-on:click="pagePrecedent">précédent</button>
+                    <button v-on:click="pageSuivante">suivant</button>
+                </div>
+                <div>
+                    <dialog id="dialog">
+                        <form method="dialog" class="form-style-4">
+                            <table>
+                                <tr>
+                                    <td><input type="text" placeholder="modification du nom" v-model="Uname"></td>
+                                    <td><input type="text" placeholder="modification de la cuisine" v-model="Ucuisine"></td>
+
+                                </tr>
+                            </table>
+                            <button v-on:click="modifierOK">OK</button>
+                        </form>
+                    </dialog>
+                </div>
+            </fieldset>
+            <dialog id="dialog2">
+                <form method="dialog" class="form-style-4">
+
+                    <fieldset>
+                        <legend>
+                            <h2> Chercher Restaurants</h2>
+                        </legend>
+                        <label>tapez le nom du restaurant :</label>
+                        <input type="text" placeholder="nom du restaurant" v-model="nomRechercher">
+                        <button v-on:click="chercherelem">Rechercher</button>
+                        <p></p>
+                        <button v-on:click="Annuler">Annuler</button>
+                    </fieldset>
+
+                </form>
+            </dialog>
+
+        </fieldset>
+    </div>
+</body>
+
+</html>
